@@ -18,8 +18,15 @@ int main(int argc, char **argv) {
 
 
 	uint8_t bit = 0;
-	uint8_t data = 0;
+	uint8_t the_data = 0;
 
+	//delay SPI_CLK_RATIO
+	delay_cycles(s, SPI_CLK_RATIO/2);
+
+	//Pull CS low
+	write_io(s, IO_CS, 0);
+
+	//delay SPI_CLK_RATIO
 	delay_cycles(s, SPI_CLK_RATIO/2);
 
 	//Write register for WHO_AM_I register
@@ -78,6 +85,42 @@ int main(int argc, char **argv) {
 
 
 	printf("whoAMI is: %02x\n", whoAmI);
+
+	if ( whoAmI == 0x34)
+	{
+		//Write adress of Data address
+		for (int i = 0;i<=4; i++)
+		{
+			the_data = 0;
+
+			bit = (0x10 & (1 << i)) != 0;
+			write_io(s, IO_SCK, 0);
+			write_io(s, IO_MOSI, bit);
+			delay_cycles(s, SPI_CLK_RATIO/2);
+			write_io(s, IO_SCK, 1);
+			delay_cycles(s, SPI_CLK_RATIO/2);
+		}
+
+		delay_cycles(s, SPI_CLK_RATIO/2);
+
+		//read adress of Data address
+		for (int i = 0;i<=4; i++)
+		{
+			write_io(s, IO_SCK, 0);
+			delay_cycles(s, SPI_CLK_RATIO/2);
+			the_data |= (read_io(s, IO_MISO) << i);
+			write_io(s, IO_SCK, 1);
+			delay_cycles(s, SPI_CLK_RATIO/2);
+			printf("Data is: %02x\n", the_data);
+
+		}
+		delay_cycles(s, SPI_CLK_RATIO/2);
+	}
+
+
+	
+	//Pull CS high
+	write_io(s, IO_CS, 1);
 
 	/*
 	read_io(s, IO_MISO);
