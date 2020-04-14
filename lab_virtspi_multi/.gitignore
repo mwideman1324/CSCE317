@@ -1,0 +1,7 @@
+trace.vcd
+simulation
+obj_dir/*
+simulation.log
+filtered.vcd
+sigrok-cli
+flashio.vcd
