@@ -50,20 +50,6 @@ void single_write(simulation_state* s, uint8_t data)
 		}
 }
 
-/*
-void spi_write(simulation_state* s, uint8_t address)
-{
-	//Pull CS Low
-	write_io(s, IO_CS2, 0);
-
-	//transmit address
-	single_write(s, address | (1 << 7));
-	
-	//Pull CS High
-	write_io(s, IO_CS2, 1); 
-}
-*/
-
 uint8_t spi_read(simulation_state* s)
 {
 	uint8_t whoAmI = 0;
@@ -103,10 +89,6 @@ void spi_streaming(simulation_state* s, uint8_t stream_length)
 	
 
 }
-
-//stream_length = datacount
-//read VD-003 = spi_single
-//set = spi_write
 
 void spi_offset(simulation_state* s, uint8_t offsetData, uint8_t VD3Data)
 {
@@ -159,7 +141,7 @@ void spi_offset(simulation_state* s, uint8_t offsetData, uint8_t VD3Data)
 		uint8_t whoAMIVD002 = 0;
 		uint8_t whoAMIVD003 = 0;
 
-		//Read and verify WHO_AM_I from both slaves
+		//Read and verify WHO_AM_I from VD002 slave
 		write_io(s, IO_CS1, 0);
 		delay_cycles(s, SPI_CLK_RATIO/2);
 		
@@ -172,7 +154,7 @@ void spi_offset(simulation_state* s, uint8_t offsetData, uint8_t VD3Data)
 		write_io(s, IO_CS1, 1);
 		delay_cycles(s, SPI_CLK_RATIO/2);
 		
-		//Read and verify WHO_AM_I from both slaves
+		//Read and verify WHO_AM_I from VD003 slave
 		write_io(s, IO_CS2, 0);
 		delay_cycles(s, SPI_CLK_RATIO/2);
 		
@@ -191,13 +173,16 @@ void spi_offset(simulation_state* s, uint8_t offsetData, uint8_t VD3Data)
 		     
 	       uint8_t num_pages;
 
-	//     read num_pages = VD-003.PAGE
+	        //read num_pages = VD-003.PAGE
+		//set num_pages = num_pages+1
 		write_io(s, IO_CS2, 0);
-	       single_write(s, NPAGE);
-	       num_pages = spi_read(s)+1;	
+	        single_write(s, NPAGE);
+	        num_pages = spi_read(s)+1;
+		num_pages = num_pages+1;	
 		
 		write_io(s, IO_CS2, 1);
 		printf("how many pages: %d\n", num_pages);
+
 		//initialize page = 0
 		uint8_t page = 0;
 
@@ -243,6 +228,4 @@ void spi_offset(simulation_state* s, uint8_t offsetData, uint8_t VD3Data)
        		
 		write_io(s, IO_CS2, 1);
 	}
-		//set page = page + 1
-//		page = spi_read(s)+1;
 }
