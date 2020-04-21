@@ -114,24 +114,6 @@ void spi_offset(simulation_state* s, uint8_t offsetData, uint8_t VD3Data)
 
 	delay_cycles(s, SPI_CLK_RATIO/2);
 }
-
-	/*uint8_t spi_single(simulation_state* s, simulation_io* CS, uint8_t address)
-	{
-		write_io(s, CS, 0);
-		delay_cycles(s, SPI_CLK_RATIO/2);
-
-		spi_write(s, address);
-		delay_cycles(s, SPI_CLK_RATIO/2);
-
-		uint8_t singleVariable = 0;
-		
-		singleVariable = spi_read(s);
-
-		write_io(s, CS, 1);
-
-		return singleVariable;
-	}
-	*/
 	 
 	int main(int argc, char **argv) {
 		simulation_state* s = initialize_simulation(argc, argv);
