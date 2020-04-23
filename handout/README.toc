@@ -1,0 +1,12 @@
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}% 
+\contentsline {section}{\numberline {2}How to Submit }{1}{section.2}% 
+\contentsline {section}{\numberline {3}Simulated Devices}{1}{section.3}% 
+\contentsline {subsection}{\numberline {3.1}VD-004: Simulated Sensor}{2}{subsection.3.1}% 
+\contentsline {subsection}{\numberline {3.2}VD-005: Simulated Flash Memory}{2}{subsection.3.2}% 
+\contentsline {subsection}{\numberline {3.3}Program Requirements}{3}{subsection.3.3}% 
+\contentsline {section}{\numberline {4}Programming Environment}{3}{section.4}% 
+\contentsline {section}{\numberline {5}Provided Code}{4}{section.5}% 
+\contentsline {section}{\numberline {6}Suggested Plan of Work}{4}{section.6}% 
+\contentsline {section}{\numberline {7}Grading}{4}{section.7}% 
+\contentsline {section}{\numberline {8}Rubric}{4}{section.8}% 
+\contentsline {section}{\numberline {9}Bug Bounty (Extra Credit Opportunity)}{5}{section.9}% 
