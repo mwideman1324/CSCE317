@@ -1,0 +1,46 @@
+reading WHO_AM_I (0x1C) from storage device, returned 0x36
+reading NPAGE (0x1D) from storage device, returned 3
+
+STARTING PAGE 0
+number of sensor readings = 4
+writing PAGESEL (0x20) to storage device
+sensor reading 0 = 0x16
+writing DATA (0x1F) to storage device
+sensor reading 1 = 0xE2
+writing DATA (0x1F) to storage device
+sensor reading 2 = 0xB4
+writing DATA (0x1F) to storage device
+sensor reading 3 = 0x4D
+writing DATA (0x1F) to storage device
+
+STARTING PAGE 1
+number of sensor readings = 5
+writing PAGESEL (0x20) to storage device
+sensor reading 0 = 0xDA
+writing DATA (0x1F) to storage device
+sensor reading 1 = 0xF1
+writing DATA (0x1F) to storage device
+sensor reading 2 = 0x69
+writing DATA (0x1F) to storage device
+sensor reading 3 = 0x00
+writing DATA (0x1F) to storage device
+sensor reading 4 = 0xDF
+writing DATA (0x1F) to storage device
+
+STARTING PAGE 2
+number of sensor readings = 7
+writing PAGESEL (0x20) to storage device
+sensor reading 0 = 0x31
+writing DATA (0x1F) to storage device
+sensor reading 1 = 0x2A
+writing DATA (0x1F) to storage device
+sensor reading 2 = 0xE1
+writing DATA (0x1F) to storage device
+sensor reading 3 = 0x9E
+writing DATA (0x1F) to storage device
+sensor reading 4 = 0x53
+writing DATA (0x1F) to storage device
+sensor reading 5 = 0x02
+writing DATA (0x1F) to storage device
+sensor reading 6 = 0x18
+writing DATA (0x1F) to storage device

@@ -87,22 +87,70 @@ typedef struct {
  * I2C_TRANSACT::data - the written data should be placed in here.
  */
 int slave_i2c(simulation_state *s,I2C_TRANSACT *mytrans) {
-	// start
+	
+        uint8_t bit1 = 0;
+        uint8_t bit2 = 0;
+
+        // start
+        WAIT_FOR_START_BIT(s)
 
 	// get address
+        for (int i = 7; i>=0; i--)
+        {
+             WAIT_FOR_RISING_SCL(s)
 
+             bit1 |= (read_io(s, IO_SDA) << i);
+
+        }
+ 
 	// update mytrans with address and readwrite flag
-
+        mytrans->readwrite = 0;
+        mytrans->address = (bit1>>1);
+       
 	// check address and send acknowledgement
-	// set status in mytrans and return if address doess not match slave address
+        //set status in mytrans and return if address does not match slave address
+        if ((bit1>>1) == SLAVE_ADDR)
+        {   
+           //Sending acknowledgement
+
+           //wait for falling edge
+           WAIT_FOR_FALLING_SCL(s)
+           write_io(s, IO_SDA, 0);
+           
+           //wait for rising edge
+           WAIT_FOR_RISING_SCL(s)
+           write_io(s, IO_SDA, 1);
+           
+        } 
+        else
+        {
+            mytrans->status = TRANS_NOTTARGET;
+            return 0;
+        }
 
 	// get data
-	
-	// send acknowledgement
+        for (int i = 7; i>=0; i--)
+        { 
+           WAIT_FOR_RISING_SCL(s)
 
+           bit2 |= (read_io(s, IO_SDA) << i);
+        }
+
+	//Send acknowledgement 
+        //Wait for falling edge
+        WAIT_FOR_FALLING_SCL(s)
+        write_io(s, IO_SDA, 0);
+
+        //Wait for rising edge
+        WAIT_FOR_RISING_SCL(s)
+        write_io(s, IO_SDA, 1);
+  
 	// wait for stop bit
+        WAIT_FOR_STOP_BIT(s)
 
 	// update mytrans with data and status
+        mytrans->data=bit2;
+        mytrans->status=TRANS_SUCCESS;
 }
 
 /*
